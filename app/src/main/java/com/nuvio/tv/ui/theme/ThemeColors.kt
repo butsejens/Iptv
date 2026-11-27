@@ -82,10 +82,10 @@ object ThemeColors {
     )
 
     val White = ThemeColorPalette(
-        secondary = NuvioPrimitives.neutral100,
-        secondaryVariant = NuvioPrimitives.neutral200,
-        onSecondary = NuvioPrimitives.neutral925,
-        onSecondaryVariant = NuvioPrimitives.neutral925,
+        secondary = Color(0xFFB91D36),
+        secondaryVariant = Color(0xFF99172C),
+        onSecondary = NuvioPrimitives.white,
+        onSecondaryVariant = NuvioPrimitives.white,
         focusRing = NuvioPrimitives.white,
         focusBackground = Color(0xFF353B44),
         background = Color(0xFF090B0E),
