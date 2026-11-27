@@ -1,0 +1,56 @@
+name: Nuvio Cinema APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/nuvio-cinema-apk.yml']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: vpn-android/native/go.mod
+          cache-dependency-path: vpn-android/native/go.sum
+      - name: Build universal TV APK
+        env:
+          NUVIO_RELEASE_STORE_FILE: ${{ github.workspace }}/keystore/livetv-fork.jks
+          NUVIO_RELEASE_KEY_ALIAS: livetv
+          NUVIO_RELEASE_KEY_PASSWORD: livetvfork
+          NUVIO_RELEASE_STORE_PASSWORD: livetvfork
+        run: |
+          bash gradlew :app:assembleFullRelease -PlivetvBuildNumber="$GITHUB_RUN_NUMBER"
+          mkdir -p out
+          cp app/build/outputs/apk/full/release/*universal*.apk out/Nuvio-IPTV-Cinema.apk
+          verifier=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$verifier" verify out/Nuvio-IPTV-Cinema.apk
+          python3 vpn-android/ci/package-openvpn2-sources.py --output out/openvpn2-corresponding-source.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nuvio-cinema
+          path: out/
+          if-no-files-found: error
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: nuvio-cinema
+          path: out
+      - name: Publish APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "cinema-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" out/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Nuvio + IPTV Cinema · $GITHUB_RUN_NUMBER" --notes "Universele Android TV-testversie."
