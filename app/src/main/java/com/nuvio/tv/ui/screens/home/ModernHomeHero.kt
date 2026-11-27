@@ -260,7 +260,7 @@ internal fun ModernHeroGradientLayer(
             }
             .drawWithCache {
                 val fullScreen = isFullScreen()
-                val horizontalFadeEndX = size.width * if (fullScreen) 0.65f else 0.45f
+                val horizontalFadeEndX = size.width * if (fullScreen) 0.81f else 0.58f
                 val colorStops = if (fullScreen) {
                     arrayOf(
                         0.0f to bgColor,
@@ -292,7 +292,7 @@ internal fun ModernHeroGradientLayer(
                     )
                 }
 
-                val bottomStripStartY = size.height * if (fullScreen) 0.64f else 0.82f
+                val bottomStripStartY = size.height * if (fullScreen) 0.56f else 0.76f
                 val verticalGradient = Brush.verticalGradient(
                     colorStops = if (fullScreen) {
                         arrayOf(
@@ -398,9 +398,9 @@ private fun HeroTitleContent(
 ) {
     val preview = previewProvider() ?: return
     val highlighterEnabled = LocalRecompositionHighlighterEnabled.current
-    val descriptionMaxLines = 4
+    val descriptionMaxLines = if (descriptionAutoScrollEnabled) 4 else 3
     val descriptionScale = if (portraitMode) 0.90f else 1f
-    val titleScale = if (portraitMode) 0.92f else 1f
+    val titleScale = if (portraitMode) 1f else 1.12f
     val metaScale = 1f
     val titleSpacing = NuvioTheme.spacing.sm * titleScale
     val metaSpacing = NuvioTheme.spacing.sm * metaScale
@@ -433,6 +433,7 @@ private fun HeroTitleContent(
     val scaledTitleStyle = remember(headlineLarge, titleScale) {
         headlineLarge.copy(
             fontSize = headlineLarge.fontSize * titleScale,
+            fontWeight = FontWeight.Bold,
             lineHeight = headlineLarge.lineHeight * titleScale
         )
     }

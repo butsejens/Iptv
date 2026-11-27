@@ -611,7 +611,7 @@ fun ModernHomeContent(
 
         val latestHeroRow by rememberUpdatedState(activeRow)
         val latestHeroIndex by rememberUpdatedState(clampedActiveItemIndex)
-        LaunchedEffect(activeHeroItemKey, verticalRowListState) {
+        LaunchedEffect(activeHeroItemKey, verticalRowListState.isScrollInProgress) {
             if (verticalRowListState.isScrollInProgress) return@LaunchedEffect
             val targetHeroKey = activeHeroItemKey ?: return@LaunchedEffect
             val settleDelayMs = heroFocusSettleDelayMs.longValue
