@@ -1,0 +1,3 @@
+[submodule "libmpv-android"]
+	path = libmpv-android
+	url = https://github.com/jarnedemeulemeester/libmpv-android.git
