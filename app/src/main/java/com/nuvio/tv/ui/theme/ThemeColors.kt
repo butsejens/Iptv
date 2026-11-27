@@ -87,8 +87,16 @@ object ThemeColors {
         onSecondary = NuvioPrimitives.neutral925,
         onSecondaryVariant = NuvioPrimitives.neutral925,
         focusRing = NuvioPrimitives.white,
-        focusBackground = Color(0xFF303030),
-        backgroundCard = NuvioPrimitives.neutral850
+        focusBackground = Color(0xFF353B44),
+        background = Color(0xFF090B0E),
+        backgroundElevated = Color(0xFF171B20),
+        backgroundCard = Color(0xFF1C2026),
+        surface = Color(0xFF171B20),
+        surfaceVariant = Color(0xFF272D35),
+        panel = Color(0xFF1C2026),
+        menu = Color(0xFF1C2026),
+        modal = Color(0xFF1C2026),
+        playerOverlay = Color(0xE6090B0E)
     )
 
     fun getColorPalette(

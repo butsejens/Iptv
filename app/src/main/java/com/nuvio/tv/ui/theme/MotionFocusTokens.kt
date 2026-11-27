@@ -64,7 +64,7 @@ object NuvioMotion {
         durations = NuvioMotionDurations(
             instant = 0,
             quick = 125,
-            fast = 180,
+            fast = 150,
             medium = 350,
             slow = 450,
             overlay = 400,
@@ -84,7 +84,7 @@ object NuvioMotion {
             decelerate = LinearOutSlowInEasing,
             accelerate = CubicBezierEasing(0.4f, 0f, 1f, 1f)
         ),
-        focusScale = 1.02f,
+        focusScale = 1.04f,
         selectedScale = 1.01f,
         pressedScale = 0.98f,
         reducedMotionScale = 1f
@@ -106,7 +106,7 @@ object NuvioMotion {
 
 object NuvioFocus {
     val tokens = NuvioFocusTokens(
-        scale = 1.02f,
+        scale = 1.04f,
         subtleScale = 1.01f,
         pressedScale = 0.98f,
         disabledScale = 1f,
